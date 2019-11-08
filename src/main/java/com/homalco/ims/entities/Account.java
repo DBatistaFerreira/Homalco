@@ -7,10 +7,10 @@ import lombok.Setter;
 
 import java.util.List;
 
-@Getter
-@Setter
 @Entity
 @Table(name = "ACCOUNT")
+@Getter
+@Setter
 public class Account {
 
     @Id
