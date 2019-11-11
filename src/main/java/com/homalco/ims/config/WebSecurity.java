@@ -34,7 +34,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         if (h2ConsoleEnabled)
             http.authorizeRequests()
-                    .antMatchers("/h2-console", "/h2-console/**","/console/**", "/console").permitAll()
+                    .antMatchers("/"," /login","/h2-console", "/h2-console/**","/console/**", "/console").permitAll()
                     .and()
                     .headers().frameOptions().sameOrigin();
 
