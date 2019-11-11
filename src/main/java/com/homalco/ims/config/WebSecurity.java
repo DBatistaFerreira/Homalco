@@ -1,6 +1,7 @@
 package com.homalco.ims.config;
 
 import com.homalco.ims.services.AccountService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -14,6 +15,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.context.annotation.Bean;
 
 import static com.homalco.ims.web.utils.Constants.SIGN_UP_URL;
+import static java.util.Arrays.asList;
 
 @EnableWebSecurity
 public class WebSecurity extends WebSecurityConfigurerAdapter {
@@ -22,7 +24,6 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 
     @Value("${spring.h2.console.enabled:false}")
     private boolean h2ConsoleEnabled;
-
 
     public WebSecurity(AccountService accountService, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.accountService = accountService;
@@ -48,7 +49,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                 .and()
                 .addFilter(new JWTAuthenticationFilter(authenticationManager()))
                 .addFilter(new JWTAuthorizationFilter(authenticationManager()))
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
 
     @Override
