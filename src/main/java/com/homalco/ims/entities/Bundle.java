@@ -1,14 +1,10 @@
 package com.homalco.ims.entities;
 
+import lombok.Data;
+
 import javax.persistence.*;
 
-import lombok.Getter;
-import lombok.Setter;
-
-import java.util.List;
-
-@Getter
-@Setter
+@Data
 @Entity
 @Table(name = "BUNDLE")
 public class Bundle {
@@ -16,7 +12,7 @@ public class Bundle {
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @Column
     private String category;

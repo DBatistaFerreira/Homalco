@@ -1,14 +1,11 @@
 package com.homalco.ims.entities;
 
+import lombok.Data;
+
 import javax.persistence.*;
-
-import lombok.Getter;
-import lombok.Setter;
-
 import java.util.List;
 
-@Getter
-@Setter
+@Data
 @Entity
 @Table(name = "PRODUCT")
 public class Product {
@@ -16,7 +13,7 @@ public class Product {
     @Id
     @Column(name = "PRODUCT_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @Column(name = "CATEGORY")
     private String category;
@@ -33,5 +30,10 @@ public class Product {
     @Column(name = "ACTIVATED")
     private boolean activated;
 
-  //  private List<Timestamp> timestamps;
+    @OneToMany(
+            fetch = FetchType.EAGER,
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<Timestamp> timestamps;
 }

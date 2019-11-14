@@ -1,13 +1,11 @@
 package com.homalco.ims.entities;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@Getter
-@Setter
+@Data
 @Entity
 @Table(name = "TIMESTAMP")
 public class Timestamp {

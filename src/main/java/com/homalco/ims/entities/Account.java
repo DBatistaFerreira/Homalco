@@ -1,22 +1,18 @@
 package com.homalco.ims.entities;
 
+import lombok.Data;
+
 import javax.persistence.*;
-
-import lombok.Getter;
-import lombok.Setter;
-
-import java.util.List;
 
 @Entity
 @Table(name = "ACCOUNT")
-@Getter
-@Setter
+@Data
 public class Account {
 
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Column
     private String username;
