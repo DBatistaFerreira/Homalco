@@ -18,8 +18,9 @@ public class ProductService {
     }
 
 
-    public void saveProduct(Product product){
+    public Product saveProduct(Product product){
         productRepository.save(product);
+        return product;
     }
 
     public void deleteProduct(long id){
