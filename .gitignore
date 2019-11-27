@@ -26,3 +26,6 @@ hs_err_pid*
 .idea
 target
 IMS.iml
+
+# db
+/src/main/resources/imsDB.mv.db

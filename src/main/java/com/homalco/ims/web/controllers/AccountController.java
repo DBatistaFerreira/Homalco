@@ -7,13 +7,13 @@ import com.homalco.ims.web.utils.AccountRequestToAccountConverter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
-import static org.springframework.http.HttpStatus.CREATED;
-import static org.springframework.http.HttpStatus.OK;
+import static org.springframework.http.HttpStatus.*;
 
 @RestController
 @RequestMapping("api")
@@ -29,19 +29,21 @@ public class AccountController {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
-    @ResponseStatus(CREATED)
     @PostMapping(path = "/Accounts")
-    public AccountResponse addAccount(
+    public ResponseEntity<AccountResponse> addAccount(
             @Valid @RequestBody AccountRequest accountRequest) {
-        LOGGER.debug("Creating Account with username {}", accountRequest.getUsername());
+        LOGGER.info("Creating Account with username {}", accountRequest.getUsername());
 
         AccountRequestToAccountConverter converter = new AccountRequestToAccountConverter();
 
         accountRequest.setPassword(bCryptPasswordEncoder.encode(accountRequest.getPassword()));
-        accountService.saveAccount(converter.convert(accountRequest));
+        AccountResponse response = accountService.saveAccount(converter.convert(accountRequest));
+        if (response != null) {
+            return ResponseEntity.status(BAD_REQUEST).body(response);
+        }
 
-        LOGGER.debug("Successfully Created Account with username {}", accountRequest.getUsername());
-        return null;
+        LOGGER.info("Successfully Created Account with username {}", accountRequest.getUsername());
+        return ResponseEntity.status(CREATED).body(response);
     }
 
     @ResponseStatus(OK)
@@ -54,7 +56,7 @@ public class AccountController {
 
     @ResponseStatus(OK)
     @GetMapping(path = "/Accounts/{accountName}", produces = MediaType.APPLICATION_JSON_VALUE)
-        public AccountResponse getAccount(
+    public AccountResponse getAccount(
             @PathVariable(value = "accountName") String accountName) {
         return null;
     }
