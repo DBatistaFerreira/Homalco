@@ -2,10 +2,10 @@ package com.homalco.ims.services;
 
 import com.homalco.ims.entities.Product;
 import com.homalco.ims.repositories.ProductRepository;
+import com.homalco.ims.web.model.ProductResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 
 @Service
 public class ProductService {
@@ -18,9 +18,17 @@ public class ProductService {
     }
 
 
-    public Product saveProduct(Product product){
-        productRepository.save(product);
-        return product;
+    public ProductResponse saveProduct(Product product){
+        if (product == null){
+            return new ProductResponse("Product is null.");
+        }
+
+        try{
+            productRepository.save(product);
+            return null;
+        } catch(DataIntegrityViolationException e){
+            return new ProductResponse("Product already exists.");
+        }
     }
 
     public void deleteProduct(long id){
