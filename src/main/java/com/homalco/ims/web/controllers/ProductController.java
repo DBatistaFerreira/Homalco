@@ -32,6 +32,7 @@ public class ProductController {
     @PostMapping(path = "/Products", produces = MediaType.APPLICATION_JSON_VALUE)
     public ProductResponse addProduct(
             @Valid @RequestBody ProductRequest productRequest) {
+        qrCodeService.createQRCode(productRequest.getId());
         return null;
     }
 
