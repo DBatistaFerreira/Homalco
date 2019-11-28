@@ -149,6 +149,10 @@ class Product extends Component {
             if (res.status == 201) {
                 alert('Successfully Created!')
             }
+            if (res.status == 403){
+                localStorage.setItem('token','null')
+                this.routeChange()
+            }
         }, err => {
             alert("Server rejected response: " + err);
         });
