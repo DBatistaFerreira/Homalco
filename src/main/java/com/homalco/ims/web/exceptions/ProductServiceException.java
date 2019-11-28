@@ -1,4 +1,4 @@
 package com.homalco.ims.web.exceptions;
 
-public class ProductServiceException {
+public class ProductServiceException extends Exception {
 }

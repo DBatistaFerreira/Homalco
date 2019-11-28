@@ -6,6 +6,7 @@ import com.homalco.ims.web.model.InventoryResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import static org.springframework.http.HttpStatus.OK;
@@ -26,7 +27,7 @@ public class InventoryController {
 
     @ResponseStatus(OK)
     @PostMapping(path = "/Inventory", produces = MediaType.APPLICATION_JSON_VALUE)
-    public InventoryResponse getGlobalInventoryStats() {
+    public ResponseEntity<InventoryResponse> getGlobalInventoryStats() {
         return null;
     }
 

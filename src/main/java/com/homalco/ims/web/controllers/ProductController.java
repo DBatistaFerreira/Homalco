@@ -45,7 +45,7 @@ public class ProductController {
 
     @ResponseStatus(OK)
     @PutMapping(path = "/Products/{productId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ProductResponse editProduct(
+    public ResponseEntity<ProductResponse> editProduct(
             @PathVariable(value = "productId") String productId,
             @Valid @RequestBody ProductRequest productRequest) {
         return null;
@@ -53,7 +53,7 @@ public class ProductController {
 
     @ResponseStatus(OK)
     @GetMapping(path = "/Products/{productId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ProductResponse getProduct(
+    public ResponseEntity<ProductResponse> getProduct(
             @PathVariable(value = "productId") String productId) {
         return null;
     }

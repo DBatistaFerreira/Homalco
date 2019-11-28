@@ -1,4 +1,4 @@
 package com.homalco.ims.web.exceptions;
 
-public class QRCodeServiceException {
+public class QRCodeServiceException extends Exception {
 }

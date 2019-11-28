@@ -6,30 +6,30 @@ import imsLogo from './imsLogo.png';
 import axios from 'axios';
 import {withRouter} from "react-router-dom";
 
-
 class Login extends Component {
 
-    constructor(props){
+    constructor(props) {
         super(props);
         this.login = this.login.bind(this);
-        this.state={
-            username:'',
-            password:''
+        this.state = {
+            username: '',
+            password: ''
         }
     }
+
     render() {
         return (
             <div>
                 <MuiThemeProvider>
                     <div>
-                        <img src={imsLogo} className="App-logo" alt="logo" />
+                        <img src={imsLogo} className="App-logo" alt="logo"/>
                     </div>
                     <div>
                         <TextField
                             hintText="Enter your Username"
                             floatingLabelText="Username"
-                            onChange = {(event,newValue) => this.setState({username:newValue})}
-                            id = 'name'
+                            onChange={(event, newValue) => this.setState({username: newValue})}
+                            id='name'
                         />
                         <br/>
                         <TextField
@@ -37,7 +37,7 @@ class Login extends Component {
                             hintText="Enter your Password"
                             floatingLabelText="Password"
                             id='pass'
-                            onChange = {(event,newValue) => this.setState({password:newValue})}
+                            onChange={(event, newValue) => this.setState({password: newValue})}
                         />
                         <br/>
                         <RaisedButton label="Sign In" primary={true} style={style} onClick={this.login}/>
@@ -56,15 +56,13 @@ class Login extends Component {
         if (element != null) {
             name = element.value;
 
-        }
-        else {
+        } else {
             name = null;
         }
         element = document.getElementById('pass');
         if (element != null) {
             pass = element.value;
-        }
-        else {
+        } else {
             pass = null;
         }
 
@@ -85,6 +83,7 @@ class Login extends Component {
 
     }
 }
+
 const style = {
     margin: 15,
 };

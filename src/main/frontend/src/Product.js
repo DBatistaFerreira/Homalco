@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
 import imsLogo from './imsLogo.png';
-import { makeStyles } from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import {TypeBackground as classes} from "@material-ui/core/styles/createPalette";
@@ -24,9 +24,9 @@ const useStyles = makeStyles(theme => ({
 
 class Product extends Component {
 
-    constructor(props){
+    constructor(props) {
         super(props);
-        this.state={
+        this.state = {
             name: '',
             description: '',
             marketPrice: '',
@@ -42,14 +42,13 @@ class Product extends Component {
     }
 
 
-
     render() {
         if (localStorage.getItem('token') == null)
             this.routeChange()
         return (
             <MuiThemeProvider>
                 <div>
-                    <img src={imsLogo} className="App-logo" alt="logo" />
+                    <img src={imsLogo} className="App-logo" alt="logo"/>
                 </div>
                 <Grid container spacing={3}>
                     <Grid item xs={12}>
@@ -66,10 +65,11 @@ class Product extends Component {
                         </Typography>
                     </Grid>
                     <Grid item xs={3}>
-                        <TextField id="name" label="Name" variant="outlined" />
+                        <TextField id="name" label="Name" variant="outlined"/>
                     </Grid>
                     <Grid item xs={6}>
-                            <RaisedButton label="Activate Product" primary={true} style={style} onClick={(event) => this.handleClick(event)}/>
+                        <RaisedButton label="Activate Product" primary={true} style={style}
+                                      onClick={(event) => this.handleClick(event)}/>
                     </Grid>
                     <Grid item xs={3}>
                         <Typography variant="h5" component="h3">
@@ -77,10 +77,11 @@ class Product extends Component {
                         </Typography>
                     </Grid>
                     <Grid item xs={3}>
-                        <TextField id="category" label="Category" variant="outlined" />
+                        <TextField id="category" label="Category" variant="outlined"/>
                     </Grid>
                     <Grid item xs={6}>
-                        <RaisedButton label="Add Timestamp" primary={true} style={style} onClick={(event) => this.handleClick(event)}/>
+                        <RaisedButton label="Add Timestamp" primary={true} style={style}
+                                      onClick={(event) => this.handleClick(event)}/>
                     </Grid>
                     <Grid item xs={3}>
                         <Typography variant="h5" component="h3">
@@ -88,7 +89,7 @@ class Product extends Component {
                         </Typography>
                     </Grid>
                     <Grid item xs={3}>
-                        <TextField id="description" label="Description" variant="outlined" />
+                        <TextField id="description" label="Description" variant="outlined"/>
                     </Grid>
                     <Grid item xs={6}>
                     </Grid>
@@ -98,7 +99,7 @@ class Product extends Component {
                         </Typography>
                     </Grid>
                     <Grid item xs={3}>
-                        <TextField id="marketPrice" label="Market Price" variant="outlined" />
+                        <TextField id="marketPrice" label="Market Price" variant="outlined"/>
                     </Grid>
                     <Grid item xs={6}>
                     </Grid>
@@ -111,51 +112,64 @@ class Product extends Component {
         );
     }
 
-    newProduct(){
-    let name;
-    let category;
-    let description;
-    let marketPrice;
-    let element;
-    element = document.getElementById('name');
-    if (element != '') {name = element.value;}
-    else {name = null;}
-    element = document.getElementById('category');
-    if (element != '') {category = element.value;}
-    else {category = null;}
-    element = document.getElementById('description');
-    if (element != '') {description = element.value;}
-    else {description = null;}
-    element = document.getElementById('marketPrice');
-    if (element != '') {marketPrice = element.value;}
-    else {marketPrice = null;}
-    if (name == '' || description == '' || category ==  '' || marketPrice == ''){
-        alert("Please fill all mandatory fields.")
-    }
-    let token = localStorage.getItem('token')
+    newProduct() {
+        let name;
+        let category;
+        let description;
+        let marketPrice;
+        let element;
+        element = document.getElementById('name');
+        if (element != '') {
+            name = element.value;
+        } else {
+            name = null;
+        }
+        element = document.getElementById('category');
+        if (element != '') {
+            category = element.value;
+        } else {
+            category = null;
+        }
+        element = document.getElementById('description');
+        if (element != '') {
+            description = element.value;
+        } else {
+            description = null;
+        }
+        element = document.getElementById('marketPrice');
+        if (element != '') {
+            marketPrice = element.value;
+        } else {
+            marketPrice = null;
+        }
+        if (name == '' || description == '' || category == '' || marketPrice == '') {
+            alert("Please fill all mandatory fields.")
+        }
+        let token = localStorage.getItem('token')
         console.log(token);
 
 
-    axios.post('http://localhost:8080/api/Products', {
-        name: name,
-        category: category,
-        description : description,
-        marketPrice : marketPrice
-    }, { headers : {
-            Authorization: token
-        }
-    })
-        .then(res => {
-            if (res.status == 201) {
-                alert('Successfully Created!')
+        axios.post('http://localhost:8080/api/Products', {
+            name: name,
+            category: category,
+            description: description,
+            marketPrice: marketPrice
+        }, {
+            headers: {
+                Authorization: token
             }
-            if (res.status == 403){
-                localStorage.setItem('token','null')
-                this.routeChange()
-            }
-        }, err => {
-            alert("Server rejected response: " + err);
-        });
+        })
+            .then(res => {
+                if (res.status == 201) {
+                    alert('Successfully Created!')
+                }
+                if (res.status == 403) {
+                    localStorage.setItem('token', 'null')
+                    this.routeChange()
+                }
+            }, err => {
+                alert("Server rejected response: " + err);
+            });
 
     }
 

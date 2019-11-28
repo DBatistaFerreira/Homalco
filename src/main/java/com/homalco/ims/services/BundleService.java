@@ -4,7 +4,6 @@ import com.homalco.ims.entities.Bundle;
 import com.homalco.ims.repositories.BundleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class BundleService {

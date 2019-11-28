@@ -48,7 +48,7 @@ public class AccountController {
 
     @ResponseStatus(OK)
     @PostMapping(path = "/Accounts/login", produces = MediaType.APPLICATION_JSON_VALUE)
-    public AccountResponse login(
+    public ResponseEntity<AccountResponse> login(
             @Valid @RequestBody AccountRequest accountRequest) {
         return null;
     }
@@ -56,7 +56,7 @@ public class AccountController {
 
     @ResponseStatus(OK)
     @GetMapping(path = "/Accounts/{accountName}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public AccountResponse getAccount(
+    public ResponseEntity<AccountResponse> getAccount(
             @PathVariable(value = "accountName") String accountName) {
         return null;
     }

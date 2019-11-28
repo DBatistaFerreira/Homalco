@@ -14,15 +14,14 @@ public class QRCodeService{
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ProductService.class);
 
-    private File QRCodeImage;
+    private File qrCodeImage;
 
     public void createQRCode(String id) {
-        this.QRCodeImage = QRCode.from(id).file("product_" + String.join("_", id.toLowerCase().split("\\s")) + "_");
+        this.qrCodeImage = QRCode.from(id).file("product_" + String.join("_", id.toLowerCase().split("\\s")) + "_");
         printQRCode();
     }
 
     public void printQRCode() {
-//      TODO: print to a printer
-        LOGGER.info("Created QR code at: " + this.QRCodeImage.getAbsolutePath());
+        LOGGER.info("Created QR code at: " + this.qrCodeImage.getAbsolutePath());
     }
 }
