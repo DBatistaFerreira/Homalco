@@ -133,21 +133,20 @@ class Product extends Component {
         alert("Please fill all mandatory fields.")
     }
     let token = localStorage.getItem('token')
+        console.log(token);
 
 
-
-    axios.post('http://localhost:8080/Products', {
+    axios.post('http://localhost:8080/api/Products', {
         name: name,
         category: category,
         description : description,
         marketPrice : marketPrice
-    }, {
-        'Authorization': token,
-        'Content-Type': 'application/json'
+    }, { headers : {
+            Authorization: token
+        }
     })
         .then(res => {
-
-            if (res.status == 200) {
+            if (res.status == 201) {
                 alert('Successfully Created!')
             }
         }, err => {
