@@ -11,10 +11,12 @@ import org.springframework.stereotype.Service;
 public class ProductService {
 
     private ProductRepository productRepository;
+    private QRCodeService qrCodeService;
 
     @Autowired
-    public ProductService(ProductRepository productRepository){
+    public ProductService(ProductRepository productRepository, QRCodeService qrCodeService) {
         this.productRepository = productRepository;
+        this.qrCodeService = qrCodeService;
     }
 
 
@@ -24,7 +26,8 @@ public class ProductService {
         }
 
         try{
-            productRepository.save(product);
+            Product savedProduct = productRepository.save(product);
+            qrCodeService.createQRCode(savedProduct.getId().toString());
             return null;
         } catch(DataIntegrityViolationException e){
             return new ProductResponse("Product already exists.");
