@@ -1,7 +1,6 @@
 package com.homalco.ims.web.controllers;
 
 import com.homalco.ims.services.ProductService;
-import com.homalco.ims.services.QRCodeService;
 import com.homalco.ims.web.model.ProductRequest;
 import com.homalco.ims.web.model.ProductResponse;
 import com.homalco.ims.web.utils.ProductRequestToProductConverter;
@@ -22,11 +21,9 @@ public class ProductController {
     private static final Logger LOGGER = LoggerFactory.getLogger(ProductController.class);
 
     private ProductService productService;
-    private QRCodeService qrCodeService;
 
-    public ProductController(ProductService productService, QRCodeService qrCodeService) {
+    public ProductController(ProductService productService) {
         this.productService = productService;
-        this.qrCodeService = qrCodeService;
     }
 
     @ResponseStatus(CREATED)
@@ -43,7 +40,6 @@ public class ProductController {
         }
 
         LOGGER.info("Successfully Created Product with name: {}", productRequest.getName());
-        qrCodeService.createQRCode(productRequest.getId());
         return ResponseEntity.status(CREATED).body(response);
 
     }

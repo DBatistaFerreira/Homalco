@@ -10,8 +10,6 @@ import javax.validation.constraints.NotNull;
 @Getter
 @Setter
 public class ProductRequest {
-    @NotBlank
-    private String id;
 
     @NotBlank
     private String name;
