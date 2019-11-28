@@ -8,6 +8,8 @@ import Grid from '@material-ui/core/Grid';
 import {TypeBackground as classes} from "@material-ui/core/styles/createPalette";
 import Typography from "@material-ui/core/Typography/Typography";
 import TextField from "@material-ui/core/TextField/TextField";
+import {withRouter} from "react-router-dom";
+import axios from "axios";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -30,9 +32,20 @@ class Product extends Component {
             marketPrice: '',
             category: ''
         }
+        this.routeChange = this.routeChange.bind(this);
+        this.newProduct = this.newProduct.bind(this);
     }
 
+    routeChange() {
+        let path = '/';
+        this.props.history.push(path);
+    }
+
+
+
     render() {
+        if (localStorage.getItem('token') == null)
+            this.routeChange()
         return (
             <MuiThemeProvider>
                 <div>
@@ -53,7 +66,7 @@ class Product extends Component {
                         </Typography>
                     </Grid>
                     <Grid item xs={3}>
-                        <TextField id="outlined-basic" label="Name" variant="outlined" />
+                        <TextField id="name" label="Name" variant="outlined" />
                     </Grid>
                     <Grid item xs={6}>
                             <RaisedButton label="Activate Product" primary={true} style={style} onClick={(event) => this.handleClick(event)}/>
@@ -64,7 +77,7 @@ class Product extends Component {
                         </Typography>
                     </Grid>
                     <Grid item xs={3}>
-                        <TextField id="outlined-basic" label="Category" variant="outlined" />
+                        <TextField id="category" label="Category" variant="outlined" />
                     </Grid>
                     <Grid item xs={6}>
                         <RaisedButton label="Add Timestamp" primary={true} style={style} onClick={(event) => this.handleClick(event)}/>
@@ -75,7 +88,7 @@ class Product extends Component {
                         </Typography>
                     </Grid>
                     <Grid item xs={3}>
-                        <TextField id="outlined-basic" label="Description" variant="outlined" />
+                        <TextField id="description" label="Description" variant="outlined" />
                     </Grid>
                     <Grid item xs={6}>
                     </Grid>
@@ -85,18 +98,64 @@ class Product extends Component {
                         </Typography>
                     </Grid>
                     <Grid item xs={3}>
-                        <TextField id="outlined-basic" label="Market Price" variant="outlined" />
+                        <TextField id="marketPrice" label="Market Price" variant="outlined" />
                     </Grid>
                     <Grid item xs={6}>
                     </Grid>
                     <Grid item xs={12}>
-                        <RaisedButton label="Save" primary={true} style={style} onClick={(event) => this.handleClick(event)}/>
+                        <RaisedButton label="Save" primary={true} style={style} onClick={this.newProduct}/>
                     </Grid>
                 </Grid>
 
             </MuiThemeProvider>
         );
     }
+
+    newProduct(){
+    let name;
+    let category;
+    let description;
+    let marketPrice;
+    let element;
+    element = document.getElementById('name');
+    if (element != '') {name = element.value;}
+    else {name = null;}
+    element = document.getElementById('category');
+    if (element != '') {category = element.value;}
+    else {category = null;}
+    element = document.getElementById('description');
+    if (element != '') {description = element.value;}
+    else {description = null;}
+    element = document.getElementById('marketPrice');
+    if (element != '') {marketPrice = element.value;}
+    else {marketPrice = null;}
+    if (name == '' || description == '' || category ==  '' || marketPrice == ''){
+        alert("Please fill all mandatory fields.")
+    }
+    let token = localStorage.getItem('token')
+
+
+
+    axios.post('http://localhost:8080/Products', {
+        name: name,
+        category: category,
+        description : description,
+        marketPrice : marketPrice
+    }, {
+        'Authorization': token,
+        'Content-Type': 'application/json'
+    })
+        .then(res => {
+
+            if (res.status == 200) {
+                alert('Successfully Created!')
+            }
+        }, err => {
+            alert("Server rejected response: " + err);
+        });
+
+    }
+
 }
 
 const style = {
@@ -104,4 +163,4 @@ const style = {
 };
 
 
-export default Product;
+export default withRouter(Product);

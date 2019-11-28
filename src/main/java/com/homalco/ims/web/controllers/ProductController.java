@@ -31,7 +31,6 @@ public class ProductController {
     public ResponseEntity<ProductResponse> addProduct(
             @Valid @RequestBody ProductRequest productRequest) {
         LOGGER.info("Creating Product with product name: {}", productRequest.getName());
-
         ProductRequestToProductConverter converter = new ProductRequestToProductConverter();
         ProductResponse response = productService.saveProduct(converter.convert(productRequest));
 
