@@ -144,33 +144,33 @@ class Product extends Component {
         }
         if (name == '' || description == '' || category == '' || marketPrice == '') {
             alert("Please fill all mandatory fields.")
+        }else {
+            let token = localStorage.getItem('token')
+            console.log(token);
+
+
+            axios.post('http://localhost:8080/api/Products', {
+                name: name,
+                category: category,
+                description: description,
+                marketPrice: marketPrice
+            }, {
+                headers: {
+                    Authorization: token
+                }
+            })
+                .then(res => {
+                    if (res.status == 201) {
+                        alert('Successfully Created!')
+                    }
+                    if (res.status == 403) {
+                        localStorage.setItem('token', 'null')
+                        this.routeChange()
+                    }
+                }, err => {
+                    alert("Server rejected response: " + err);
+                });
         }
-        let token = localStorage.getItem('token')
-        console.log(token);
-
-
-        axios.post('http://localhost:8080/api/Products', {
-            name: name,
-            category: category,
-            description: description,
-            marketPrice: marketPrice
-        }, {
-            headers: {
-                Authorization: token
-            }
-        })
-            .then(res => {
-                if (res.status == 201) {
-                    alert('Successfully Created!')
-                }
-                if (res.status == 403) {
-                    localStorage.setItem('token', 'null')
-                    this.routeChange()
-                }
-            }, err => {
-                alert("Server rejected response: " + err);
-            });
-
     }
 
 }
