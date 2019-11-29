@@ -7,6 +7,7 @@ import com.homalco.ims.services.QRCodeService;
 import com.homalco.ims.web.model.ProductResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.orm.jpa.JpaObjectRetrievalFailureException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -40,7 +41,12 @@ public class ProductServiceImpl implements ProductService {
         productRepository.delete(productRepository.getOne(id));
     }
 
-    @Override public void getProduct(long id){
-        productRepository.getOne(id);
+    @Override public Product getProduct(long id){
+        try{
+            return productRepository.getOne(id);
+        }
+        catch(JpaObjectRetrievalFailureException e){
+            return null;
+        }
     }
 }

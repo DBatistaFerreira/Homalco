@@ -8,5 +8,5 @@ public interface ProductService {
 
     void deleteProduct(long id);
 
-    void getProduct(long id);
+    Product getProduct(long id);
 }
