@@ -1,9 +1,7 @@
 package com.homalco.ims.services;
 
+import java.io.File;
+
 public interface QRCodeService {
-    void createQRCode(String id);
-
-    void printQRCode();
-
-    java.io.File getQrCodeImage();
+    File createQRCode(String id);
 }

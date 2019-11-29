@@ -23,7 +23,8 @@ public class AccountServiceImpl implements AccountService {
         this.accountRepository = accountRepository;
     }
 
-    @Override public AccountResponse saveAccount(Account account) {
+    @Override
+    public AccountResponse saveAccount(Account account) {
         if (account == null) {
             return new AccountResponse("User is null.");
         }
@@ -36,11 +37,13 @@ public class AccountServiceImpl implements AccountService {
         }
     }
 
-    @Override public void deleteAccount(long id) {
+    @Override
+    public void deleteAccount(long id) {
         accountRepository.delete(accountRepository.getOne(id));
     }
 
-    @Override public Account getAccount(long id) {
+    @Override
+    public Account getAccount(long id) {
         return accountRepository.getOne(id);
     }
 

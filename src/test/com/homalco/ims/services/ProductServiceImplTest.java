@@ -2,25 +2,25 @@ package com.homalco.ims.services;
 
 import com.homalco.ims.Tests;
 import com.homalco.ims.entities.Product;
-import com.homalco.ims.repositories.ProductRepository;
 import com.homalco.ims.services.impl.ProductServiceImpl;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.transaction.annotation.Transactional;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 @Transactional
 @Configurable
-public class ProductServiceTest extends Tests {
+public class ProductServiceImplTest extends Tests {
 
     @Autowired
     private ProductServiceImpl productService;
 
     @Test
     public void productServiceBasicFlows() {
-        Product testProduct = createTestProduct("testName", "testCategory","testDescription", 0);
+        Product testProduct = createTestProduct();
         productService.saveProduct(testProduct);
 
         Product retrieveTestProduct = productService.getProduct(testProduct.getId());
@@ -36,12 +36,12 @@ public class ProductServiceTest extends Tests {
         assertNull(retrieveTestProduct);
     }
 
-    private Product createTestProduct(String name, String category, String description, double marketPrice){
+    private Product createTestProduct() {
         Product testProduct = new Product();
-        testProduct.setName(name);
-        testProduct.setCategory(category);
-        testProduct.setDescription(description);
-        testProduct.setMarketPrice(marketPrice);
+        testProduct.setName("testName");
+        testProduct.setCategory("testCategory");
+        testProduct.setDescription("testDescription");
+        testProduct.setMarketPrice((double) 0);
 
         return testProduct;
     }
