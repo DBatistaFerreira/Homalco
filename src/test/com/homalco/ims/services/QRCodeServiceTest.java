@@ -1,5 +1,6 @@
 package com.homalco.ims.services;
 
+import com.homalco.ims.services.impl.QRCodeServiceImpl;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -26,7 +27,7 @@ public class QRCodeServiceTest {
 
     @Test
     public void testCreateQRCode() {
-        QRCodeService qrCodeService = new QRCodeService();
+        QRCodeService qrCodeService = new QRCodeServiceImpl();
         qrCodeService.createQRCode("12345678987654321");
         assertTrue(outContent.toString().contains("product_12345678987654321_"));
         assertTrue(outContent.toString().contains(".png"));
