@@ -3,6 +3,7 @@ package com.homalco.ims.entities;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @Entity
@@ -20,7 +21,15 @@ public class Bundle {
     @Column
     private String information;
 
-   // private List<Product> products;
+    @OneToMany(
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<Product> products;
 
-   // private List<Timestamp> timestamps;
+    @OneToMany(
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<Timestamp> timestamps;
 }
