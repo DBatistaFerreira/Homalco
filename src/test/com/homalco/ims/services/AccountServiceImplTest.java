@@ -20,11 +20,8 @@ public class AccountServiceImplTest extends Tests {
     public Account dummyAccount() {
         Account account = new Account();
         account.setUsername("Sam");
-        account.setId((long) 343);
         account.setType("Anything");
         account.setPassword("Boogus");
-        account.setBundles(null);
-        account.setProducts(null);
         return account;
     }
 
@@ -41,8 +38,9 @@ public class AccountServiceImplTest extends Tests {
 
         accountService.deleteAccount(account.getId());
 
+        result = accountService.getAccount(account.getId());
+
         assertThat(result).isNull();
 
     }
-
 }

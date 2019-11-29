@@ -6,6 +6,7 @@ import com.homalco.ims.services.AccountService;
 import com.homalco.ims.web.model.AccountResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.orm.jpa.JpaObjectRetrievalFailureException;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -44,7 +45,12 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public Account getAccount(long id) {
-        return accountRepository.getOne(id);
+        try{
+            return accountRepository.getOne(id);
+        }
+        catch(JpaObjectRetrievalFailureException e){
+            return null;
+        }
     }
 
     @Override
