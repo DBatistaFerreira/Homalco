@@ -31,7 +31,6 @@ public class Product {
     private boolean activated;
 
     @OneToMany(
-            fetch = FetchType.EAGER,
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )

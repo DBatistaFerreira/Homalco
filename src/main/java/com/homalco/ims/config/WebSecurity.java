@@ -34,7 +34,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         if (h2ConsoleEnabled)
             http.authorizeRequests()
-                    .antMatchers("/", "/static/**", "/login","/h2-console", "/h2-console/**","/console/**", "/console").permitAll()
+                    .antMatchers("/", "/static/**", "/ims", "/ims/**", "/login","/h2-console", "/h2-console/**","/console/**", "/console").permitAll()
                     .and()
                     .headers().frameOptions().sameOrigin();
 
@@ -64,6 +64,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
         configuration.setAllowedMethods(asList("HEAD",
                 "GET", "POST", "PUT", "DELETE", "PATCH"));
         configuration.setAllowCredentials(true);
+        configuration.addExposedHeader("Authorization");
         configuration.setAllowedHeaders(asList("Authorization", "Cache-Control", "Content-Type"));
         final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);

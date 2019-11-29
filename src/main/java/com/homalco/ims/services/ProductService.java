@@ -1,32 +1,12 @@
 package com.homalco.ims.services;
 
 import com.homalco.ims.entities.Product;
-import com.homalco.ims.repositories.ProductRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import com.homalco.ims.web.model.ProductResponse;
 
+public interface ProductService {
+    ProductResponse saveProduct(Product product);
 
-@Service
-public class ProductService {
+    void deleteProduct(long id);
 
-    private ProductRepository productRepository;
-
-    @Autowired
-    public ProductService(ProductRepository productRepository){
-        this.productRepository = productRepository;
-    }
-
-
-    public void saveProduct(Product product){
-        productRepository.save(product);
-    }
-
-    public void deleteProduct(long id){
-        productRepository.delete(productRepository.getOne(id));
-    }
-
-    public void getProduct(long id){
-        productRepository.getOne(id);
-    }
+    Product getProduct(long id);
 }

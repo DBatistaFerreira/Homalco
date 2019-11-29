@@ -1,15 +1,7 @@
 package com.homalco.ims.services;
 
-import org.springframework.stereotype.Service;
+import java.io.File;
 
-@Service
-public class QRCodeService{
-
-    public void createQRCode(){
-
-    }
-
-    public void printQRCode(){
-
-    }
+public interface QRCodeService {
+    File createQRCode(String id);
 }

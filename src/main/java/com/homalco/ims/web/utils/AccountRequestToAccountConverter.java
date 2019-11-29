@@ -11,6 +11,7 @@ public class AccountRequestToAccountConverter  implements Converter<AccountReque
         Account account = new Account();
         account.setUsername(accountRequest.getUsername());
         account.setPassword(accountRequest.getPassword());
+
         return account;
     }
 }

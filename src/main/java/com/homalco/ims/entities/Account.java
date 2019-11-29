@@ -3,6 +3,7 @@ package com.homalco.ims.entities;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "ACCOUNT")
@@ -14,7 +15,7 @@ public class Account {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
+    @Column(unique = true)
     private String username;
 
     @Column
@@ -23,7 +24,15 @@ public class Account {
     @Column
     private String type;
 
-  //  private List<Product> products;
+    @OneToMany(
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<Product> products;
 
- //   private List<Bundle> bundles;
+    @OneToMany(
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<Bundle> bundles;
 }
